@@ -35,11 +35,11 @@ class UserDatabase: #criar uma instancia
     #método de update
     #i = index, u = user
 
-    def update_user(self, new_user:dict):
+    def update_user(self, user_id ,new_user:dict):
         for index, user in enumerate(self.users):
-            if user['id'] == new_user['id']:
-                self.users[index] = user
-                return user 
+            if user['id'] == user_id:
+                self.users[index].update(new_user)
+                return self.users[index] 
         return None
 
 

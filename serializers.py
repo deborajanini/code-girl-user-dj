@@ -12,3 +12,6 @@ class CreateUserSerializer(BaseModel):
 class UserSerializer(CreateUserSerializer):
     id: str
 
+class UpdateUserSerializer(CreateUserSerializer):
+    pass
+

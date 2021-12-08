@@ -2,7 +2,7 @@ from typing import List
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
 from database import UserDatabase
-from serializers import CreateUserSerializer, UserSerializer
+from serializers import CreateUserSerializer, UserSerializer, UpdateUserSerializer
 
 
 app = FastAPI()
@@ -52,10 +52,18 @@ def get_user(user_id:str):
     return user
 
 # UPDATE USER BY ID
-"""
+
 @app.put('/users/{user_id}/')
-def update_user(user_id: str, user: CreateUserSerializer):
-"""
+def update_user(user_id: str, user_to_update: UpdateUserSerializer):
+    updated_user = user_database.update_user(user_id, user_to_update.dict())
+    if updated_user is None:
+        return JSONResponse(
+            content=dict(message="User not found"),
+            #ou content={'message':'User not found'}
+            status_code=status.HTTP_404_NOT_FOUND
+            )
+    return updated_user
+
 
 
 # DELETE USER BY ID
